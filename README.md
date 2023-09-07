@@ -1,4 +1,4 @@
-# New Main Menu for Wizard with a Gun
+# Rainbow Eyes for Wizard with a Gun
 This is the second modification to the game Wizard With a Gun (Demo)
 
 It replaces the standard eye color of the Player Character with a rotating set of rainbow eyes.

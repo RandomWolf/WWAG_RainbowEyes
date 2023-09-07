@@ -8,7 +8,7 @@ using BepInEx.Configuration;
 namespace WWAG_RainbowEyes
 {
 	// Plugin Info
-    [BepInPlugin("org.NikoTheFox.RainbowEyes", "WWAG Rainbow Eyes", "0.0.2")]
+    [BepInPlugin("org.NikoTheFox.RainbowEyes", "WWAG Rainbow Eyes", "0.0.3")]
     public class Plugin : BaseUnityPlugin
     {
 		public static ConfigEntry<float> configSpeed;
@@ -26,16 +26,20 @@ namespace WWAG_RainbowEyes
 		{
 			if (scene.name == "scene-tower" || scene.name == "scene-overworld-demo")
 			{
-				CoroutineRunner.Instance.RunCoroutine(DelayedInitialization());
+				CoroutineRunner.Instance.RunCoroutine(InitForGame());
 
+			}
+			if (scene.name == "title-screen")
+			{
+				CoroutineRunner.Instance.RunCoroutine(InitForTitle());
 			}
 		}
 
-		IEnumerator DelayedInitialization()
+		IEnumerator InitForGame()
 		{
 			yield return new WaitForSeconds(10);  // Adjust the wait time if necessary
 
-			Debug.Log($"Found tower scene, loading animation");
+			Debug.Log($"Found tower scene, loading animation ");
 			GameObject player = GameObject.Find("player(Clone)");
 
 			if (player == null)
@@ -56,6 +60,28 @@ namespace WWAG_RainbowEyes
 			GameObject PlayerVis = playerVisualTransform.gameObject;
 
 			PlayerVis.AddComponent<RainbowColors>();
+		}
+
+		IEnumerator InitForTitle()
+		{
+			yield return new WaitForSeconds(1);
+			Debug.Log($"Found title scene, loading animation");
+			GameObject backgroundCanvas = GameObject.Find("background-canvas");
+
+			if (backgroundCanvas == null)
+			{
+				Debug.Log("Canvas Object not found");
+				yield break;
+			}
+
+			GameObject playerAnimation = backgroundCanvas.transform.Find("player-animation").gameObject;
+			if (playerAnimation == null)
+			{
+				Debug.Log("player-animation not found");
+				yield break;
+			}
+
+			playerAnimation.AddComponent<RainbowColors>();
 		}
 		void OnEnable()
 		{

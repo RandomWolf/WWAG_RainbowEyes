@@ -8,7 +8,7 @@ using BepInEx.Configuration;
 namespace WWAG_RainbowEyes
 {
 	// Plugin Info
-    [BepInPlugin("org.NikoTheFox.RainbowEyes", "WWAG Rainbow Eyes", "0.0.3")]
+    [BepInPlugin("org.NikoTheFox.RainbowEyes", "WWAG Rainbow Eyes", "0.0.6")]
     public class Plugin : BaseUnityPlugin
     {
 		public static ConfigEntry<float> configSpeed;
